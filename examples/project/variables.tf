@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-variable "group_email" {
-  type        = string
-  description = "Email for group to receive roles (ex. group@example.com)"
-}
+# variable "group_email" {
+#   type        = string
+#   description = "Email for group to receive roles (ex. group@example.com)"
+# }
 
-variable "sa_email" {
-  type        = string
-  description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
-}
+# variable "sa_email" {
+#   type        = string
+#   description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
+# }
 
 variable "user_email" {
   type        = string
-  description = "Email for group to receive roles (Ex. user@example.com)"
+  description = "ragavi@appranix.com"
 }
 
 /******************************************
@@ -37,8 +37,9 @@ variable "project_one" {
   description = "First project id to add the IAM policies/bindings"
 }
 
-variable "project_two" {
-  type        = string
-  description = "Second project id to add the IAM policies/bindings"
+variable "roles" {
+  type        = list(string)
+  description = "First project id to add the IAM policies/bindings"
+  default = ["roles/storage.admin", "roles/storage.objectCreator"]
 }
 

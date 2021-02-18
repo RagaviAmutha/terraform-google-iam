@@ -17,6 +17,20 @@
 /******************************************
   Provider configuration
  *****************************************/
+
+terraform {
+  # backend "gcs" {
+  #   bucket  = "state_files"
+  #   prefix  = "terraform/state"
+  # }
+  backend "remote" {
+    organization = "scale-org-1"
+
+  workspaces {
+    name = "project-iam"
+    }
+  }
+}
 provider "google" {
   version = "~> 3.36"
 }
@@ -29,21 +43,21 @@ provider "google-beta" {
   Module project_iam_binding calling
  *****************************************/
 module "project_iam_binding" {
-  source   = "../../modules/projects_iam/"
-  projects = [var.project_one, var.project_two]
+  source   = "./modules/projects_iam/"
+  projects = [var.project_one]
   mode     = "additive"
 
   bindings = {
-    "roles/compute.networkAdmin" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
+    var.roles[count.index] = [
+      # "serviceAccount:${var.sa_email}",
+      # "group:${var.group_email}",
       "user:${var.user_email}",
     ]
-    "roles/appengine.appAdmin" = [
-      "serviceAccount:${var.sa_email}",
-      "group:${var.group_email}",
-      "user:${var.user_email}",
-    ]
+    # "roles/appengine.appAdmin" = [
+    #   "serviceAccount:${var.sa_email}",
+    #   "group:${var.group_email}",
+    #   "user:${var.user_email}",
+    # ]
   }
 }
 
