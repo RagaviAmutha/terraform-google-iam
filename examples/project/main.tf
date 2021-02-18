@@ -42,8 +42,9 @@ provider "google-beta" {
 /******************************************
   Module project_iam_binding calling
  *****************************************/
-module "project_iam_binding" {
-  source   = "./modules/projects_iam/"
+module "iam_projects_iam" {
+  source  = "app.terraform.io/scale-org-1/iam/google//modules/projects_iam"
+  version = "6.4.1"
   projects = [var.project_one]
   mode     = "additive"
 
