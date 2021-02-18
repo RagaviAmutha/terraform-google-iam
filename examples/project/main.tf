@@ -49,7 +49,7 @@ module "iam_projects_iam" {
   mode     = "additive"
 
   bindings = {
-    "roles/"${var.roles[count.index]} = [
+    "roles/${var.roles[count.index]}" = [
       # "serviceAccount:${var.sa_email}",
       # "group:${var.group_email}",
       "user:${var.user_email}",
