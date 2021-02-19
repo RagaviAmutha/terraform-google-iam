@@ -49,7 +49,7 @@ module "iam_projects_iam" {
   mode     = "additive"
   #count = length(var.roles_members)
   #for_each = var.roles_members
-  for member, roleName in var.roles_members : [
+  for member, roleName in var.roles_members : {
     for role in roleName : {
       bindings = {
         "roles/${role}" = [
@@ -64,6 +64,6 @@ module "iam_projects_iam" {
       # ]
     }
    }
-  ]
+  }
 }
 
