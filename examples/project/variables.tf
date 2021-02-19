@@ -43,7 +43,7 @@ variable "roles" {
   default = ["roles/storage.admin", "roles/storage.objectCreator"]
 }
    
-variable "roles_members " {
+variable "roles_members" {
   type        =  map
   description = "First project id to add the IAM policies/bindings"
   #default = ["roles/storage.admin", "roles/storage.objectCreator"]
