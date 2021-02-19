@@ -50,7 +50,7 @@ module "iam_projects_iam" {
   #count = length(var.roles_members)
   for_each = var.roles_members
   
-  for role in each.value : {
+  for role in ${each.value} : {
     bindings = {
       "roles/${role}" = [
         # "serviceAccount:${var.sa_email}",
