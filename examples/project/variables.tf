@@ -24,10 +24,10 @@
 #   description = "Email for Service Account to receive roles (Ex. default-sa@example-project-id.iam.gserviceaccount.com)"
 # }
 
-variable "user_email" {
-  type        = string
-  description = "ragavi@appranix.com"
-}
+# variable "user_email" {
+#   type        = string
+#   description = "ragavi@appranix.com"
+# }
 
 /******************************************
   project_iam_binding variables
@@ -37,11 +37,11 @@ variable "project_one" {
   description = "First project id to add the IAM policies/bindings"
 }
 
-variable "roles" {
-  type        = list(string)
-  description = "First project id to add the IAM policies/bindings"
-  default = ["roles/storage.admin", "roles/storage.objectCreator"]
-}
+# variable "roles" {
+#   type        = list(string)
+#   description = "First project id to add the IAM policies/bindings"
+#   default = ["roles/storage.admin", "roles/storage.objectCreator"]
+# }
    
 variable "roles_members" {
   type        =  map
