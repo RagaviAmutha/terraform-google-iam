@@ -47,7 +47,7 @@ module "iam_projects_iam" {
   version = "6.4.1"
   projects = [var.project_one]
   mode     = "additive"
-  count = length(var.role)
+  count = length(var.roles)
 
   bindings = {
     "roles/${var.roles[count.index]}" = [
