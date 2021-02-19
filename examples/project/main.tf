@@ -50,13 +50,13 @@ module "iam_projects_iam" {
   #count = length(var.roles_members)
   #for_each = var.roles_members
   locals {
-  permissionsbyrole = flatten([
-  for member, roleName in var.roles_members : {
-    for role in roleName : {
-        role = roles,
-        member = member
+    permissionsbyrole = flatten([
+      for member, roleName in var.roles_members : {
+        for role in roleName : {
+          role = roles,
+          member = member
+        }
       }
-    }
     ])
   }
   for_each = {
