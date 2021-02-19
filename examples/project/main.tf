@@ -47,7 +47,7 @@ provider "google-beta" {
     permissionsbyrole = flatten([
       for member, roleName in var.roles_members : [
         for role in roleName : {
-          role = roles,
+          role = role,
           member = member
         }
       ]
