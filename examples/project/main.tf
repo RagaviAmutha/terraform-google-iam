@@ -49,18 +49,20 @@ module "iam_projects_iam" {
   mode     = "additive"
   #count = length(var.roles_members)
   for_each = var.roles_members
-
-  bindings = {
-    "roles/${each.value}" = [
-      # "serviceAccount:${var.sa_email}",
-      # "group:${var.group_email}",
-      "user:${each.key}",
-    ]
-    # "roles/appengine.appAdmin" = [
-    #   "serviceAccount:${var.sa_email}",
-    #   "group:${var.group_email}",
-    #   "user:${var.user_email}",
-    # ]
+  
+  for role in each.value : {
+    bindings = {
+      "roles/${role}" = [
+        # "serviceAccount:${var.sa_email}",
+        # "group:${var.group_email}",
+        "user:${each.key}",
+      ]
+      # "roles/appengine.appAdmin" = [
+      #   "serviceAccount:${var.sa_email}",
+      #   "group:${var.group_email}",
+      #   "user:${var.user_email}",
+      # ]
+    }
   }
 }
 
