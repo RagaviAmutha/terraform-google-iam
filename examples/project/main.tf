@@ -49,21 +49,30 @@ module "iam_projects_iam" {
   mode     = "additive"
   #count = length(var.roles_members)
   #for_each = var.roles_members
-  for member, roleName in "${var.roles_members}" : {
+  locals {
+  permissionsbyrole = flatten([
+  for member, roleName in var.roles_members : {
     for role in roleName : {
-      bindings = {
-        "roles/${role}" = [
-          # "serviceAccount:${var.sa_email}",
-          # "group:${var.group_email}",
-          "user:${member}",
-        ]
+        role = roles,
+        member = member
+      }
+    }
+    ])
+  }
+  for_each = {
+    for permission in local.permissionsbyrole : "${permission.role}.${permission.member}}" => permission
+  }
+  bindings = {
+    "roles/${each.value.role}" = [
+        # "serviceAccount:${var.sa_email}",
+        # "group:${var.group_email}",
+     "user:${each.value.member}",
+    ]
       # "roles/appengine.appAdmin" = [
       #   "serviceAccount:${var.sa_email}",
       #   "group:${var.group_email}",
       #   "user:${var.user_email}",
       # ]
-    }
-   }
   }
 }
 
