@@ -42,13 +42,7 @@ provider "google-beta" {
 /******************************************
   Module project_iam_binding calling
  *****************************************/
-module "iam_projects_iam" {
-  source  = "app.terraform.io/scale-org-1/iam/google//modules/projects_iam"
-  version = "6.4.1"
-  projects = [var.project_one]
-  mode     = "additive"
-  #count = length(var.roles_members)
-  #for_each = var.roles_members
+     
   locals {
     permissionsbyrole = flatten([
       for member, roleName in var.roles_members : [
@@ -59,6 +53,15 @@ module "iam_projects_iam" {
       ]
     ])
   }
+      
+module "iam_projects_iam" {
+  source  = "app.terraform.io/scale-org-1/iam/google//modules/projects_iam"
+  version = "6.4.1"
+  projects = [var.project_one]
+  mode     = "additive"
+  #count = length(var.roles_members)
+  #for_each = var.roles_members
+
   for_each = {
     for permission in local.permissionsbyrole : "${permission.role}.${permission.member}}" => permission
   }
